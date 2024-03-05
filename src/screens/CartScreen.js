@@ -5,10 +5,10 @@ import { Row, Col, ListGroup, Image, Form, Button, Card, CardText } from "react-
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from "../actions/cartActions";
 
-function CartScreen( { match, history } ) {
+function CartScreen() {
     const { id } = useParams()
     const location = useLocation()
-    const navigate = useNavigate()
+    const history = useNavigate()
 
     const qty = location.search ? Number(location.search.split('=')[1]) : 1;
     console.log('qty: ', qty);
@@ -31,7 +31,7 @@ function CartScreen( { match, history } ) {
     }
 
     const checkoutHander = () => {
-        navigate(`/login?redirect=shipping`)
+        history(`/login?redirect=shipping`)
     }
 
     return (
@@ -99,7 +99,7 @@ function CartScreen( { match, history } ) {
                 <ListGroup variant="flush">
                     <ListGroup.Item>
                         <h2>Total ({cartItems.reduce((acc, item) => acc + item.qty, 0)})</h2>
-                        $ {cartItems.reduce((acc,item) => acc + item.qty * item.price, 0)} 
+                        $ {(cartItems.reduce((acc,item) => acc + item.qty * item.price, 0).toFixed(2))} 
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <Button
